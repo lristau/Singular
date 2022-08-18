@@ -1,9 +1,6 @@
 #include "kernel/mod2.h"
 
 #ifdef HAVE_POLYMAKE
-#ifndef POLYMAKE_VERSION
-#define POLYAMKE_VERSION POLYMAKEVERSION
-#endif
 
 #include "Singular/dyn_modules/gfanlib/bbcone.h"
 #include "Singular/dyn_modules/gfanlib/bbfan.h"
@@ -35,9 +32,9 @@ static BOOLEAN bbpolytope_Op2(int op, leftv res, leftv i1, leftv i2)
         gfan::ZCone* ms;
         try
         {
-          polymake::perl::Object* pp = ZPolytope2PmPolytope(zp);
-          polymake::perl::Object* pq = ZPolytope2PmPolytope(zq);
-          polymake::perl::Object pms;
+          PolymakeObjectType* pp = ZPolytope2PmPolytope(zp);
+          PolymakeObjectType* pq = ZPolytope2PmPolytope(zq);
+          PolymakeObjectType pms;
           #if (POLYMAKE_VERSION >= 305)
           polymake::call_function("minkowski_sum", *pp, *pq) >> pms;
           #else
@@ -228,7 +225,7 @@ BOOLEAN PMisLatticePolytope(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("Lattice");
       delete p;
     }
@@ -258,7 +255,7 @@ BOOLEAN PMisBounded(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("BOUNDED");
       delete p;
     }
@@ -288,7 +285,7 @@ BOOLEAN PMisReflexive(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("REFLEXIVE");
       delete p;
     }
@@ -318,7 +315,7 @@ BOOLEAN PMisGorenstein(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("GORENSTEIN");
       delete p;
     }
@@ -349,7 +346,7 @@ BOOLEAN PMgorensteinIndex(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       bool b = p->give("GORENSTEIN");
       if (b)
       {
@@ -397,7 +394,7 @@ BOOLEAN PMgorensteinVector(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       bool b = p->give("GORENSTEIN");
       if (b)
       {
@@ -444,7 +441,7 @@ BOOLEAN PMisCanonical(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("CANONICAL");
       delete p;
     }
@@ -474,7 +471,7 @@ BOOLEAN PMisTerminal(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("TERMINAL");
       delete p;
     }
@@ -504,7 +501,7 @@ BOOLEAN PMisLatticeEmpty(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("LATTICE_EMPTY");
       delete p;
     }
@@ -535,7 +532,7 @@ BOOLEAN PMlatticeVolume(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Integer plv = p->give("LATTICE_VOLUME");
       delete p;
       lv = PmInteger2Int(plv,ok);
@@ -572,7 +569,7 @@ BOOLEAN PMlatticeDegree(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Integer pld = p->give("LATTICE_DEGREE");
       delete p;
       ld = PmInteger2Int(pld,ok);
@@ -609,7 +606,7 @@ BOOLEAN PMlatticeCodegree(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Integer plc = p->give("LATTICE_CODEGREE");
       delete p;
       lc = PmInteger2Int(plc,ok);
@@ -646,7 +643,7 @@ BOOLEAN PMehrhartPolynomialCoeff(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Vector<polymake::Integer> pec = p->give("EHRHART_POLYNOMIAL_COEFF");
       delete p;
       ec = PmVectorInteger2Intvec(&pec,ok);
@@ -683,7 +680,7 @@ BOOLEAN PMfVector(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Vector<polymake::Integer> phv = p->give("F_VECTOR");
       delete p;
       hv = PmVectorInteger2Intvec(&phv,ok);
@@ -720,7 +717,7 @@ BOOLEAN PMhVector(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Vector<polymake::Integer> phv = p->give("H_VECTOR");
       delete p;
       hv = PmVectorInteger2Intvec(&phv,ok);
@@ -757,7 +754,7 @@ BOOLEAN PMhStarVector(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Vector<polymake::Integer> phv = p->give("H_STAR_VECTOR");
       delete p;
       hv = PmVectorInteger2Intvec(&phv,ok);
@@ -793,7 +790,7 @@ BOOLEAN PMisNormal(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("NORMAL");
       delete p;
     }
@@ -824,7 +821,7 @@ BOOLEAN PMfacetWidths(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Vector<polymake::Integer> pfw = p->give("FACET_WIDTHS");
       delete p;
       fw = PmVectorInteger2Intvec(&pfw,ok);
@@ -861,7 +858,7 @@ BOOLEAN PMfacetWidth(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Integer pfw = p->give("FACET_WIDTH");
       delete p;
       fw = PmInteger2Int(pfw,ok);
@@ -898,7 +895,7 @@ BOOLEAN PMfacetVertexLatticeDistances(leftv res, leftv args)
     bool ok=true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Matrix<polymake::Integer> pld = p->give("FACET_VERTEX_LATTICE_DISTANCES");
       delete p;
       ld = PmMatrixInteger2Intvec(&pld,ok);
@@ -934,7 +931,7 @@ BOOLEAN PMisCompressed(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("COMPRESSED");
       delete p;
     }
@@ -964,7 +961,7 @@ BOOLEAN PMisSmooth(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZCone2PmCone(zc);
+      PolymakeObjectType* p = ZCone2PmCone(zc);
       b = p->give("SMOOTH_CONE");
       delete p;
     }
@@ -986,7 +983,7 @@ BOOLEAN PMisSmooth(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("SMOOTH");
       delete p;
     }
@@ -1008,7 +1005,7 @@ BOOLEAN PMisSmooth(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZFan2PmFan(zf);
+      PolymakeObjectType* p = ZFan2PmFan(zf);
       b = p->give("SMOOTH_FAN");
       delete p;
     }
@@ -1038,7 +1035,7 @@ BOOLEAN PMisVeryAmple(leftv res, leftv args)
     bool b;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       b = p->give("VERY_AMPLE");
       delete p;
     }
@@ -1069,7 +1066,7 @@ BOOLEAN PMlatticePoints(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       #if (POLYMAKEVERSION >=305)
       polymake::Matrix<polymake::Integer> lp = p->call_method("LATTICE_POINTS");
       #elif (POLYMAKEVERSION >=214)
@@ -1114,7 +1111,7 @@ BOOLEAN PMnLatticePoints(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Integer nlp = p->give("N_LATTICE_POINTS");
       delete p;
       n = PmInteger2Int(nlp,ok);
@@ -1151,7 +1148,7 @@ BOOLEAN PMinteriorLatticePoints(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Matrix<polymake::Integer> lp = p->give("INTERIOR_LATTICE_POINTS");
       delete p;
       iv = PmMatrixInteger2Intvec(&lp,ok);
@@ -1188,7 +1185,7 @@ BOOLEAN PMnInteriorLatticePoints(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Integer nlp = p->give("N_INTERIOR_LATTICE_POINTS");
       delete p;
       n = PmInteger2Int(nlp,ok);
@@ -1225,7 +1222,7 @@ BOOLEAN PMboundaryLatticePoints(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Matrix<polymake::Integer> lp = p->give("BOUNDARY_LATTICE_POINTS");
       delete p;
       iv = PmMatrixInteger2Intvec(&lp,ok);
@@ -1262,7 +1259,7 @@ BOOLEAN PMnBoundaryLatticePoints(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Integer nlp = p->give("N_BOUNDARY_LATTICE_POINTS");
       delete p;
       n = PmInteger2Int(nlp,ok);
@@ -1299,7 +1296,7 @@ BOOLEAN PMhilbertBasis(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       #if (POLYMAKEVERSION >=305)
       polymake::Matrix<polymake::Integer> lp = p->call_method("HILBERT_BASIS");
       #elif (POLYMAKEVERSION >=214)
@@ -1344,7 +1341,7 @@ BOOLEAN PMnHilbertBasis(leftv res, leftv args)
     bool ok = true;
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Integer nlp = p->give("N_HILBERT_BASIS");
       delete p;
       n = PmInteger2Int(nlp,ok);
@@ -1384,9 +1381,9 @@ BOOLEAN PMminkowskiSum(leftv res, leftv args)
       gfan::ZCone* ms;
       try
       {
-        polymake::perl::Object* pp = ZPolytope2PmPolytope(zp);
-        polymake::perl::Object* pq = ZPolytope2PmPolytope(zq);
-        polymake::perl::Object pms;
+        PolymakeObjectType* pp = ZPolytope2PmPolytope(zp);
+        PolymakeObjectType* pq = ZPolytope2PmPolytope(zq);
+        PolymakeObjectType pms;
         #if (POLYMAKE_VERSION >= 305)
         polymake::call_function("minkowski_sum", *pp, *pq) >> pms;
         #else
@@ -1416,9 +1413,9 @@ BOOLEAN PMminkowskiSum(leftv res, leftv args)
       gfan::ZCone* ms;
       try
       {
-        polymake::perl::Object* pp = ZPolytope2PmPolytope(zp);
-        polymake::perl::Object* pq = ZPolytope2PmPolytope(zq);
-        polymake::perl::Object pms;
+        PolymakeObjectType* pp = ZPolytope2PmPolytope(zp);
+        PolymakeObjectType* pq = ZPolytope2PmPolytope(zq);
+        PolymakeObjectType pms;
         #if (POLYMAKE_VERSION >= 305)
         polymake::call_function("minkowski_sum", *pp, *pq) >> pms;
         #else
@@ -1454,9 +1451,9 @@ BOOLEAN PMminkowskiSum(leftv res, leftv args)
       gfan::ZCone* ms;
       try
       {
-        polymake::perl::Object* pp = ZPolytope2PmPolytope(zp);
-        polymake::perl::Object* pq = ZPolytope2PmPolytope(zq);
-        polymake::perl::Object pms;
+        PolymakeObjectType* pp = ZPolytope2PmPolytope(zp);
+        PolymakeObjectType* pq = ZPolytope2PmPolytope(zq);
+        PolymakeObjectType pms;
         #if (POLYMAKE_VERSION >= 305)
         polymake::call_function("minkowski_sum", *pp, *pq) >> pms;
         #else
@@ -1487,9 +1484,9 @@ BOOLEAN PMminkowskiSum(leftv res, leftv args)
       gfan::ZCone* ms;
       try
       {
-        polymake::perl::Object* pp = ZPolytope2PmPolytope(zp);
-        polymake::perl::Object* pq = ZPolytope2PmPolytope(zq);
-        polymake::perl::Object pms;
+        PolymakeObjectType* pp = ZPolytope2PmPolytope(zp);
+        PolymakeObjectType* pq = ZPolytope2PmPolytope(zq);
+        PolymakeObjectType pms;
         #if (POLYMAKE_VERSION >= 305)
         polymake::call_function("minkowski_sum", *pp, *pq) >> pms;
         #else
@@ -1516,7 +1513,7 @@ BOOLEAN PMminkowskiSum(leftv res, leftv args)
 }
 
 
-polymake::Matrix<polymake::Integer> verticesOf(const polymake::perl::Object* p,
+polymake::Matrix<polymake::Integer> verticesOf(const PolymakeObjectType* p,
                                                const polymake::Set<polymake::Integer>* s)
 {
   polymake::Matrix<polymake::Integer> allrays = p->give("VERTICES");
@@ -1556,8 +1553,8 @@ BOOLEAN PMmaximalFace(leftv res, leftv args)
       bool ok = true;
       try
       {
-        polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
-        polymake::perl::Object o("LinearProgram<Rational>");
+        PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
+        PolymakeObjectType o("LinearProgram<Rational>");
         o.take("LINEAR_OBJECTIVE") << Intvec2PmVectorInteger(iv);
         p->take("LP") << o;
         polymake::Set<polymake::Integer> mf = p->give("LP.MAXIMAL_FACE");
@@ -1602,8 +1599,8 @@ BOOLEAN PMminimalFace(leftv res, leftv args)
       bool ok = true;
       try
       {
-        polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
-        polymake::perl::Object o("LinearProgram<Rational>");
+        PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
+        PolymakeObjectType o("LinearProgram<Rational>");
         o.take("LINEAR_OBJECTIVE") << Intvec2PmVectorInteger(iv);
         p->take("LP") << o;
         polymake::Set<polymake::Integer> mf = p->give("LP.MINIMAL_FACE");
@@ -1650,9 +1647,9 @@ BOOLEAN PMmaximalValue(leftv res, leftv args)
         bool ok = true;
         try
         {
-          polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+          PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
           polymake::Vector<polymake::Integer> lo = Intvec2PmVectorInteger(iv);
-          polymake::perl::Object o("LinearProgram<Rational>");
+          PolymakeObjectType o("LinearProgram<Rational>");
           o.take("LINEAR_OBJECTIVE") << lo;
           p->take("LP") << o;
           polymake::Integer mv = p->give("LP.MAXIMAL_VALUE");
@@ -1700,9 +1697,9 @@ BOOLEAN PMminimalValue(leftv res, leftv args)
         bool ok = true;
         try
         {
-          polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+          PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
           polymake::Vector<polymake::Integer> lo = Intvec2PmVectorInteger(iv);
-          polymake::perl::Object o("LinearProgram<Rational>");
+          PolymakeObjectType o("LinearProgram<Rational>");
           o.take("LINEAR_OBJECTIVE") << lo;
           p->take("LP") << o;
           polymake::Integer mv = p->give("LP.MINIMAL_VALUE");
@@ -1743,7 +1740,7 @@ BOOLEAN visual(leftv res, leftv args)
     gfan::ZCone* zp = (gfan::ZCone*)u->Data();
     try
     {
-      polymake::perl::Object* pp = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* pp = ZPolytope2PmPolytope(zp);
       #if (POLYMAKE_VERSION >= 305)
       polymake::call_function("jreality",pp->call_method("VISUAL"));
       #else
@@ -1768,7 +1765,7 @@ BOOLEAN visual(leftv res, leftv args)
     gfan::ZFan* zf = (gfan::ZFan*)u->Data();
     try
     {
-      polymake::perl::Object* pf=ZFan2PmFan(zf);
+      PolymakeObjectType* pf=ZFan2PmFan(zf);
       #if (POLYMAKE_VERSION >= 305)
       polymake::call_function("jreality",pf->call_method("VISUAL"));
       #else
@@ -1800,8 +1797,8 @@ BOOLEAN normalFan(leftv res, leftv args)
     gfan::ZFan* zf = new gfan::ZFan(0);
     try
     {
-      polymake::perl::Object* p=ZPolytope2PmPolytope(zp);
-      polymake::perl::Object pf;
+      PolymakeObjectType* p=ZPolytope2PmPolytope(zp);
+      PolymakeObjectType pf;
       #if (POLYMAKE_VERSION >= 305)
       polymake::call_function("normal_fan", *p) >> pf;
       #else
@@ -1831,7 +1828,7 @@ BOOLEAN PMconeViaRays(leftv res, leftv args)
   if ((u != NULL) && (u->Typ() == INTMAT_CMD))
   {
     gfan::initializeCddlibIfRequired();
-    polymake::perl::Object pc("Cone<Rational>");
+    PolymakeObjectType pc("Cone<Rational>");
     intvec* hlines = (intvec*) u->Data(); // these will are half lines in the cone
     polymake::Matrix<polymake::Integer> pmhlines = Intvec2PmMatrixInteger(hlines);
     pc.take("INPUT_RAYS") << pmhlines;
@@ -1867,7 +1864,7 @@ BOOLEAN PMpolytopeViaVertices(leftv res, leftv args)
   if ((u != NULL) && (u->Typ() == INTMAT_CMD))
   {
     gfan::initializeCddlibIfRequired();
-    polymake::perl::Object pp("Polytope<Rational>");
+    PolymakeObjectType pp("Polytope<Rational>");
     intvec* points = (intvec*) u->Data(); // these will be vertices of or points in the polytope
     polymake::Matrix<polymake::Integer> pmpoints = Intvec2PmMatrixInteger(points);
 
@@ -1906,7 +1903,7 @@ BOOLEAN PMvertexAdjacencyGraph(leftv res, leftv args)
     lists output=(lists)omAllocBin(slists_bin); output->Init(2);
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Matrix<polymake::Integer> vert0 = p->give("VERTICES");
       bigintmat* vert1 = PmMatrixInteger2Bigintmat(&vert0);
       output->m[0].rtyp = BIGINTMAT_CMD;
@@ -1945,7 +1942,7 @@ BOOLEAN PMvertexEdgeGraph(leftv res, leftv args)
     lists output=(lists)omAllocBin(slists_bin); output->Init(2);
     try
     {
-      polymake::perl::Object* p = ZPolytope2PmPolytope(zp);
+      PolymakeObjectType* p = ZPolytope2PmPolytope(zp);
       polymake::Matrix<polymake::Integer> vert0 = p->give("VERTICES");
       bigintmat* vert1 = PmMatrixInteger2Bigintmat(&vert0);
       output->m[0].rtyp = BIGINTMAT_CMD;

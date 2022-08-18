@@ -1,9 +1,6 @@
 #include "kernel/mod2.h"
 
 #ifdef HAVE_POLYMAKE
-#ifndef POLYMAKE_VERSION
-#define POLYMAKE_VERSION POLYMAKEVERSION
-#endif
 
 #include <gmpxx.h>
 
@@ -14,6 +11,7 @@
 #include <polymake/Set.h>
 #include <polymake/common/lattice_tools.h>
 #include <polymake/IncidenceMatrix.h>
+#include <polymake_conversion.h>
 
 #include "gfanlib/gfanlib.h"
 #include "gfanlib/gfanlib_q.h"
@@ -283,7 +281,7 @@ polymake::Matrix<polymake::Integer> Intvec2PmMatrixInteger (const intvec* im)
 /* Functions for converting cones and fans in between gfan and polymake,
    Singular shares the same cones and fans with gfan */
 
-gfan::ZCone* PmCone2ZCone (polymake::perl::Object* pc)
+gfan::ZCone* PmCone2ZCone (PolymakeObjectType* pc)
 {
   if (pc->isa("Cone"))
   {
@@ -338,7 +336,7 @@ gfan::ZCone* PmCone2ZCone (polymake::perl::Object* pc)
   return NULL;
 }
 
-gfan::ZCone* PmPolytope2ZPolytope (polymake::perl::Object* pp)
+gfan::ZCone* PmPolytope2ZPolytope (PolymakeObjectType* pp)
 {
   if (pp->isa("Polytope<Rational>"))
   {
@@ -396,7 +394,7 @@ gfan::ZCone* PmPolytope2ZPolytope (polymake::perl::Object* pp)
   return NULL;
 }
 
-gfan::ZFan* PmFan2ZFan (polymake::perl::Object* pf)
+gfan::ZFan* PmFan2ZFan (PolymakeObjectType* pf)
 {
   if (pf->isa("PolyhedralFan"))
   {
@@ -407,9 +405,9 @@ gfan::ZFan* PmFan2ZFan (polymake::perl::Object* pf)
     for (int i=0; i<n; i++)
     {
       #if (POLYMAKE_VERSION >= 305)
-      polymake::perl::Object pmcone=pf->call_method("cone",i);
+      PolymakeObjectType pmcone=pf->call_method("cone",i);
       #else
-      polymake::perl::Object pmcone=pf->CallPolymakeMethod("cone",i);
+      PolymakeObjectType pmcone=pf->CallPolymakeMethod("cone",i);
       #endif
       gfan::ZCone* zc=PmCone2ZCone(&pmcone);
       zf->insert(*zc);
@@ -420,9 +418,9 @@ gfan::ZFan* PmFan2ZFan (polymake::perl::Object* pf)
   return NULL;
 }
 
-polymake::perl::Object* ZCone2PmCone (gfan::ZCone* zc)
+PolymakeObjectType* ZCone2PmCone (gfan::ZCone* zc)
 {
-  polymake::perl::Object* gc = new polymake::perl::Object("Cone<Rational>");
+  PolymakeObjectType* gc = new PolymakeObjectType("Cone<Rational>");
 
   gfan::ZMatrix inequalities = zc->getInequalities();
   gc->take("FACETS") << GfZMatrix2PmMatrixInteger(&inequalities);
@@ -445,9 +443,9 @@ polymake::perl::Object* ZCone2PmCone (gfan::ZCone* zc)
   return gc;
 }
 
-polymake::perl::Object* ZPolytope2PmPolytope (gfan::ZCone* zc)
+PolymakeObjectType* ZPolytope2PmPolytope (gfan::ZCone* zc)
 {
-  polymake::perl::Object* pp = new polymake::perl::Object("Polytope<Rational>");
+  PolymakeObjectType* pp = new PolymakeObjectType("Polytope<Rational>");
 
   gfan::ZMatrix inequalities = zc->getInequalities();
   pp->take("FACETS") << GfZMatrix2PmMatrixInteger(&inequalities);
@@ -527,9 +525,9 @@ polymake::Array<polymake::Set<int> > conesOf(gfan::ZFan* zf)
   return L;
 }
 
-polymake::perl::Object* ZFan2PmFan (gfan::ZFan* zf)
+PolymakeObjectType* ZFan2PmFan (gfan::ZFan* zf)
 {
-  polymake::perl::Object* pf = new polymake::perl::Object("PolyhedralFan");
+  PolymakeObjectType* pf = new PolymakeObjectType("PolyhedralFan");
 
   polymake::Matrix<polymake::Integer> zm = raysOf(zf);
   pf->take("RAYS") << zm;  // using rays here instead of INPUT_RAYS prevents redundant computations

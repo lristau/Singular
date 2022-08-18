@@ -4,6 +4,9 @@
 #include "kernel/mod2.h"
 
 #ifdef HAVE_POLYMAKE
+#ifndef POLYMAKE_VERSION
+#define POLYMAKE_VERSION POLYMAKEVERSION
+#endif
 
 #include <gmpxx.h>
 
@@ -22,6 +25,12 @@
 #include "coeffs/bigintmat.h"
 #include "misc/intvec.h"
 #include "Singular/lists.h"
+
+#if POLYMAKE_VERSION >= 400 /*4.0*/
+  typedef polymake::BigObject PolymakeObjectType;
+#else
+  typedef polymake::perl::Object PolymakeObjectType;
+#endif
 
 /* Functions for converting Integers, Rationals and their Matrices
    in between C++, gfan, polymake and singular */
@@ -60,12 +69,12 @@ polymake::Matrix<polymake::Integer> Intvec2PmMatrixInteger (const intvec* im);
 /* Functions for converting cones and fans in between gfan and polymake,
    Singular shares the same cones and fans with gfan */
 
-gfan::ZCone* PmCone2ZCone (polymake::perl::Object* pc);
-gfan::ZCone* PmPolytope2ZPolytope (polymake::perl::Object* pp);
-gfan::ZFan* PmFan2ZFan (polymake::perl::Object* pf);
-polymake::perl::Object* ZCone2PmCone (gfan::ZCone* zc);
-polymake::perl::Object* ZPolytope2PmPolytope (gfan::ZCone* zc);
-polymake::perl::Object* ZFan2PmFan (gfan::ZFan* zf);
+gfan::ZCone* PmCone2ZCone (PolymakeObjectType* pc);
+gfan::ZCone* PmPolytope2ZPolytope (PolymakeObjectType* pp);
+gfan::ZFan* PmFan2ZFan (PolymakeObjectType* pf);
+PolymakeObjectType* ZCone2PmCone (gfan::ZCone* zc);
+PolymakeObjectType* ZPolytope2PmPolytope (gfan::ZCone* zc);
+PolymakeObjectType* ZFan2PmFan (gfan::ZFan* zf);
 
 #endif
 #endif
