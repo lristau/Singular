@@ -56,6 +56,7 @@ multformaldivisor(int,formaldivisor)            multiply a formal divisor by an 
 degreeFormalDivisor(formaldivisor)              degree of a formal divisor
 
 makePDivisor(List)                              make a formal polyhedral sum of divisors
+pdivisorplus(pdivisor,pdivisor)                 add two polyhedral divisors
 
 
 ";
@@ -68,7 +69,7 @@ LIB "primdec.lib";
 static proc mod_init()
 {
 LIB"customstd.so";
-LIB"gfanlib.so";
+load("polymake.lib","try");
 newstruct("divisor","ideal den,ideal num");
 newstruct("formaldivisor","list summands");
 newstruct("pdivisor","list summands, cone tail");
@@ -79,6 +80,7 @@ system("install","divisor","*",proxymultdivisor,2);
 system("install","formaldivisor","print",formaldivisor_print,1);
 system("install","formaldivisor","+",formaldivisorplus,2);
 system("install","formaldivisor","*",proxymultformaldivisor,2);
+system("install","pdivisor","+",pdivisorplus,2);
 }
 
 
