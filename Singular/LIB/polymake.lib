@@ -374,15 +374,33 @@ EXAMPLE: example triangulations;   shows an example"
     }
   }
   spi=spi+"]";
+  string points2triangs_call;
+  i = system("sh", "which points2triangs > /dev/null");
+  if (i == 0)
+  {
+    points2triangs_call = "points2triangs";
+  }
+  else
+  {
+    i = system("sh", "which topcom-points2triangs > /dev/null");
+    if (i == 0)
+    {
+      points2triangs_call = "topcom-points2triangs";
+    }
+    else
+    {
+      ERROR("points2triangs is not available!");
+    }
+  }
   write(":w /tmp/triangulationsinput",spi);
   // call points2triangs
   if (regular==1) // compute only regular triangulations
   {
-    system("sh","cd /tmp; points2triangs --regular < triangulationsinput > triangulationsoutput");
+    system("sh","cd /tmp; " + points2triangs_call + " --regular < triangulationsinput > triangulationsoutput");
   }
   else // compute all triangulations
   {
-    system("sh","cd /tmp; points2triangs < triangulationsinput > triangulationsoutput");
+    system("sh","cd /tmp; " + points2triangs_call + " < triangulationsinput > triangulationsoutput");
   }
   string p2t=read("/tmp/triangulationsoutput"); // takes result of points2triangs
   // delete the tmp-files, if no second argument is given
